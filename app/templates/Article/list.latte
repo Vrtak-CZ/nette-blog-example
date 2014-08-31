@@ -1,0 +1,20 @@
+{block #content}
+	<p><a n:href=":Article:add">Add new article</a></p>
+
+	<table class="styled">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Published</th>
+			</tr>
+		</thead>
+		{foreach $articles as $article}
+			<tr>
+				<td>{$article->id}</td>
+				<td><a n:href=":Article:detail slug => $article->slug">{$article->name}</a></td>
+				<td>{$article->published|date:'Y-m-d g:i:sa'}</td>
+			</tr>
+		{/foreach}
+	</table>
+{/block}

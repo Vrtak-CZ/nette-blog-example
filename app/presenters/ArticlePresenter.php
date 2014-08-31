@@ -36,6 +36,11 @@ class ArticlePresenter extends BasePresenter
 		$this->template->title = $article->name;
 	}
 
+	public function renderList()
+	{
+		$this->template->articles = $this->database->table('articles')->order('published DESC');
+	}
+
 	/**
 	 * @return \Nette\Application\UI\Form
 	 */
@@ -58,7 +63,8 @@ class ArticlePresenter extends BasePresenter
 				'published' => new \DateTimeImmutable(),
 			));
 
-			$this->redirect('default');
+			$this->flashMessage(sprintf('Article %s saved', $values->name), 'success');
+			$this->redirect('list');
 		};
 
 		return $form;

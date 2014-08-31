@@ -126,6 +126,18 @@ html.js .jshidden {
 	margin: 0;
 }
 
+#content table.styled {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#content table.styled td, #content table.styled th {
+	border: 1px solid #ddd;
+	margin: 0;
+	padding: 5px 2px;
+	text-align: center;
+}
+
 footer {
 	font-size: 70%;
 	padding: 1em 0;
