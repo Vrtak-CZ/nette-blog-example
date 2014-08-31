@@ -42,6 +42,23 @@ class ArticlePresenter extends BasePresenter
 	}
 
 	/**
+	 * @param int $id
+	 */
+	public function actionEdit($id)
+	{
+		$article = $this->database->table('articles')->where('id = ?', $id)->fetch();
+		if ($article === false) {
+			$this->error('Article not found');
+		}
+
+		$this->getComponent('form')->setDefaults(array(
+			'name' => $article->name,
+			'slug' => $article->slug,
+			'text' => $article->text,
+		));
+	}
+
+	/**
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentForm()
@@ -55,13 +72,26 @@ class ArticlePresenter extends BasePresenter
 		$form->addSubmit('save', 'Save');
 
 		$form->onSuccess[] = function(Form $form, \Nette\Utils\ArrayHash $values) {
+			$articleId = $this->getParameter('id', NULL);
+			if ($articleId !== NULL) {
+				$article = $this->database->table('articles')->where('id = ?', $articleId)->fetch();
+			}
+
 			$slug = $form->getComponent('slug')->isFilled() ? $values->slug : Strings::webalize($values->name);
-			$this->database->table('articles')->insert(array(
-				'name' => $values->name,
-				'slug' => $slug,
-				'text' => $values->text,
-				'published' => new \DateTimeImmutable(),
-			));
+			if (isset($article) && $article !== false) {
+				$article->update(array(
+					'name' => $values->name,
+					'slug' => $slug,
+					'text' => $values->text,
+				));
+			} else {
+				$this->database->table('articles')->insert(array(
+					'name' => $values->name,
+					'slug' => $slug,
+					'text' => $values->text,
+					'published' => new \DateTimeImmutable(),
+				));
+			}
 
 			$this->flashMessage(sprintf('Article %s saved', $values->name), 'success');
 			$this->redirect('list');
