@@ -14,7 +14,9 @@
 		<script> document.documentElement.className+=' js' </script>
 
 		<div id="banner">
-			<h1><a n:href=":Article:default">{block #site}Nette BlogExample{/block}</a></h1>
+			{block #banner}
+				<h1><a n:href=":Article:default">{block #site}Nette BlogExample{/block}</a></h1>
+			{/block}
 		</div>
 
 		<div id="content">
@@ -27,7 +29,8 @@
 			<footer>
 				PHP {=PHP_VERSION} |
 				{ifset $_SERVER['SERVER_SOFTWARE']}Server {$_SERVER['SERVER_SOFTWARE']}{/ifset} |
-				Nette Framework {=Nette\Framework::VERSION}
+				Nette Framework {=Nette\Framework::VERSION} |
+				{block #footer}<a n:href=":Admin:Article:default">Admin</a>{/block}
 			</footer>
 		</div>
 

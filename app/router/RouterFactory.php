@@ -14,7 +14,7 @@ class RouterFactory
 	{
 		$router = new RouteList();
 		$router[] = new Route('', 'Article:default');
-		$router[] = new Route('admin/<action>', 'Article:list');
+		$router[] = new Route('admin[/<action>]', 'Admin:Article:default');
 		$router[] = new Route('<slug>', 'Article:detail');
 		return $router;
 	}

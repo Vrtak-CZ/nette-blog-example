@@ -1,5 +1,5 @@
 {block #content}
-	<p><a n:href=":Article:add">Add new article</a></p>
+	<p><a n:href=":Admin:Article:add">Add new article</a></p>
 
 	<table class="styled">
 		<thead>
@@ -15,7 +15,7 @@
 				<td>{$article->id}</td>
 				<td><a n:href=":Article:detail slug => $article->slug">{$article->name}</a></td>
 				<td>{$article->published|date:'Y-m-d g:i:sa'}</td>
-				<td><a n:href=":Article:edit id => $article->id">edit</a></td>
+				<td><a n:href=":Admin:Article:edit id => $article->id">edit</a></td>
 			</tr>
 		{/foreach}
 	</table>
