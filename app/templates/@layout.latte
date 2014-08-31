@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>{ifset $title}{$title} | {/ifset}Nette BlogExample</title>
+		<title>{ifset $title}{$title} | {/ifset}{include #site}</title>
 
 		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
 		<link rel="shortcut icon" href="{$basePath}/favicon.ico">
@@ -13,11 +13,23 @@
 	<body>
 		<script> document.documentElement.className+=' js' </script>
 
-		{foreach $flashes as $flash}
-			<div class="flash {$flash->type}">{$flash->message}</div>
-		{/foreach}
+		<div id="banner">
+			<h1><a n:href=":Article:default">{block #site}Nette BlogExample{/block}</a></h1>
+		</div>
 
-		{include #content}
+		<div id="content">
+			{foreach $flashes as $flash}
+				<div class="flash {$flash->type}">{$flash->message}</div>
+			{/foreach}
+
+			{include #content}
+
+			<footer>
+				PHP {=PHP_VERSION} |
+				{ifset $_SERVER['SERVER_SOFTWARE']}Server {$_SERVER['SERVER_SOFTWARE']}{/ifset} |
+				Nette Framework {=Nette\Framework::VERSION}
+			</footer>
+		</div>
 
 		{block #scripts}
 			<script src="{$basePath}/js/jquery.js"></script>

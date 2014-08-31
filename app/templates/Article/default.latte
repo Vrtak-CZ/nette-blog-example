@@ -1,0 +1,15 @@
+{block #content}
+	{foreach $articles as $article}
+		<article>
+			<header>
+				<h2><a n:href=":Article:detail slug => $article->slug">{$article->name}</a></h2>
+			</header>
+
+			<p>{$article->text}</p>
+
+			<footer>
+				<p>{$article->published|date:'Y-m-d g:ia'}</p>
+			</footer>
+		</article>
+	{/foreach}
+{/block}
