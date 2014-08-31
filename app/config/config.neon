@@ -20,6 +20,10 @@ nette:
 	session:
 		expiration: 14 days
 
+	security:
+		users:
+			demo: xxx
+
 
 services:
 	- App\RouterFactory
