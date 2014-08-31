@@ -1,0 +1,13 @@
+{block #content}
+	<article>
+		<header>
+			<h2>{$article->name}</h2>
+		</header>
+
+		<p>{$article->text}</p>
+
+		<footer>
+			<p>{$article->published|date:'Y-m-d g:ia'}</p>
+		</footer>
+	</article>
+{/block}

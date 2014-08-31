@@ -18,4 +18,18 @@ class ArticlePresenter extends BasePresenter
 	{
 		$this->template->articles = $this->database->table('articles')->order('published DESC');
 	}
+
+	/**
+	 * @param string $slug
+	 */
+	public function renderDetail($slug)
+	{
+		$article = $this->database->table('articles')->where('slug = ?', $slug)->fetch();
+		if ($article === false) {
+			$this->error('Article not found');
+		}
+
+		$this->template->article = $article;
+		$this->template->title = $article->name;
+	}
 }
