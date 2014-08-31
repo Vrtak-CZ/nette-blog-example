@@ -2,24 +2,16 @@
 
 namespace App\Presenters;
 
-use Nette,
-	App\Model,
-	Tracy\Debugger;
+use Tracy\Debugger;
 
-
-/**
- * Error presenter.
- */
 class ErrorPresenter extends BasePresenter
 {
-
 	/**
-	 * @param  Exception
-	 * @return void
+	 * @param \Exception
 	 */
-	public function renderDefault($exception)
+	public function renderDefault(\Exception $exception)
 	{
-		if ($exception instanceof Nette\Application\BadRequestException) {
+		if ($exception instanceof \Nette\Application\BadRequestException) {
 			$code = $exception->getCode();
 			// load template 403.latte or 404.latte or ... 4xx.latte
 			$this->setView(in_array($code, array(403, 404, 405, 410, 500)) ? $code : '4xx');
@@ -36,5 +28,4 @@ class ErrorPresenter extends BasePresenter
 			$this->terminate();
 		}
 	}
-
 }

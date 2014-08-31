@@ -1,26 +1,24 @@
 {
-	"name": "nette/sandbox",
-	"description": "The sandbox is a pre-packaged Nette Framework project, basic configured structure for your application.",
-	"homepage": "http://nette.org",
+	"name": "vrtak-cz/nette-blog-example",
+	"description": "Simple Blog engine in Nette Framework.",
+	"homepage": "https://github.com/Vrtak-CZ/nette-blog-example",
 	"type": "project",
-	"license": ["Unlicense"],
+	"license": ["MIT"],
 	"authors": [
 		{
-			"name": "David Grudl",
-			"homepage": "http://davidgrudl.com"
-		},
-		{
-			"name": "Nette Community",
-			"homepage": "http://nette.org/contributors"
+			"name": "Patrik Votoček",
+			"email": "patrik@votocek.cz",
+			"homepage": "http://patrik.votocek.cz",
+			"role": "Developer"
 		}
 	],
+	"support": {
+		"issues":"https://github.com/Vrtak-CZ/nette-blog-example/issues",
+		"source":"https://github.com/Vrtak-CZ/nette-blog-example"
+	},
 	"require": {
 		"php": ">= 5.3.7",
 		"nette/nette": "~2.2.0",
 		"dg/adminer-custom": "~1.5"
-	},
-	"require-dev": {
-		"nette/tester": "~1.0"
-	},
-	"minimum-stability": "stable"
+	}
 }
