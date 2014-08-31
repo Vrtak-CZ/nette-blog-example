@@ -10,7 +10,9 @@ abstract class BasePresenter extends \App\Presenters\BasePresenter
 	public function checkRequirements($element)
 	{
 		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect(':Login:default');
+			$this->redirect(':Login:default', array(
+				'backlink' => $this->storeRequest(),
+			));
 		}
 	}
 

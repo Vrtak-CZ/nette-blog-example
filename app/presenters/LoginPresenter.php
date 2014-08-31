@@ -7,6 +7,12 @@ use Nette\Application\UI\Form;
 class LoginPresenter extends BasePresenter
 {
 	/**
+	 * @persistent
+	 * @var string
+	 */
+	public $backlink;
+
+	/**
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentForm()
@@ -24,6 +30,9 @@ class LoginPresenter extends BasePresenter
 					$values->password
 				);
 
+				if ($this->backlink !== NULL) {
+					$this->restoreRequest($this->backlink);
+				}
 				$this->redirect('Admin:Article:default');
 			} catch (\Nette\Security\AuthenticationException $e) {
 				$form->addError('Invalid credentials');
