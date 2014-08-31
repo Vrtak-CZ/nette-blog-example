@@ -1,0 +1,24 @@
+<div class="comments">
+	<h1>Comments</h1>
+
+	{foreach $flashes as $flash}
+        <div class="flash {$flash->type}">{$flash->message}</div>
+    {/foreach}
+
+	{foreach $comments as $comment}
+		<article id="comment-{$comment->id}">
+			<header>
+				<h2><a href="{$comment->web}" n:tag-ifset="$comment->web" target="_blank">{$comment->name}</a></h2>
+			</header>
+
+			<p>{$comment->text}</p>
+
+			<footer>
+				<p>{$comment->published|date:'Y-m-d g:ia'}</p>
+			</footer>
+		</article>
+	{/foreach}
+
+	<h2>Add new comment</h2>
+	{control form}
+</div>

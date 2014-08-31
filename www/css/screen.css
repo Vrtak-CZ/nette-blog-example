@@ -118,14 +118,6 @@ html.js .jshidden {
 	padding: 10px 4%;
 }
 
-#content > h2 {
-	font-size: 130%;
-	color: #666;
-	clear: both;
-	padding: 1.2em 0;
-	margin: 0;
-}
-
 #content table.styled {
 	width: 100%;
 	border-collapse: collapse;
@@ -136,6 +128,23 @@ html.js .jshidden {
 	margin: 0;
 	padding: 5px 2px;
 	text-align: center;
+}
+
+#content .comments h2 {
+	font-size: 120%;
+}
+
+#content .comments article p {
+	padding: 0;
+	margin: 5px 0;
+}
+
+#content .comments article footer {
+	margin: 5px 0;
+}
+
+#content .comments article footer p {
+	margin: 0;
 }
 
 footer {

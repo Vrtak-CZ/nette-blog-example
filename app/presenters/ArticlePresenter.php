@@ -99,4 +99,18 @@ class ArticlePresenter extends BasePresenter
 
 		return $form;
 	}
+
+	/**
+	 * @return \App\Components\CommentsControl
+	 */
+	protected function createComponentComments()
+	{
+		$article = $this->database->table('articles')->where('slug = ?', $this->getParameter('slug', NULL))->fetch();
+		if ($article === false) {
+			$this->error('Article not found');
+		}
+
+		$control = new \App\Components\CommentsControl($this->database, $article->id);
+		return $control;
+	}
 }
