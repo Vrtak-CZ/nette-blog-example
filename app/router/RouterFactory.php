@@ -17,6 +17,7 @@ class RouterFactory
 		$router[] = new Route('admin/login', 'Login:default');
 		$router[] = new Route('admin[/<action>]', 'Admin:Article:default');
 		$router[] = new Route('feed.xml', 'Rss:default');
+		$router[] = new Route('<slug>/feed.xml', 'Rss:comments');
 		$router[] = new Route('<slug>', 'Article:detail');
 		return $router;
 	}

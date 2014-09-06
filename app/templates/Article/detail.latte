@@ -13,3 +13,7 @@
 		{control comments}
 	</article>
 {/block}
+{block #head}
+	{include #parent}
+	<link rel="alternate" type="application/rss+xml" title="Comments RSS" href="{link :Rss:comments slug => $article->slug}">
+{/block}

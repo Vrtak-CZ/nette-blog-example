@@ -1,0 +1,26 @@
+{contentType application/xml}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>Nette BlogExample - Comments for {$article->name}</title>
+	<link>{link //:Article:detail slug => $article->slug}</link>
+	<language>en</language>
+	<category>blog</category>
+	<docs>http://backend.userland.com/rss</docs>
+	<atom:link rel="self" href="{link //this}" type="application/rss+xml" />
+	{foreach $comments as $comment}
+	<item>
+		{var $i = ($iterator->count() - ($iterator->counter - 1))}
+		<title>#{$i} comment for {$article->name} by {$comment->name}</title>
+		<link>{link //:Article:detail#comment-$comment->id slug => $article->slug}</link>
+		<description>{$comment->text}</description>
+		<content:encoded><![CDATA[
+			{$comment->text}
+		]]></content:encoded>
+		<comments>{link //:Article:detail#comments slug => $article->slug}</comments>
+		<pubDate>{$comment->published|date:'r'}</pubDate>
+		<guid isPermaLink="false">item{$i}@{link //:Article:detail slug => $article->slug}</guid>
+	</item>
+	{/foreach}
+</channel>
+</rss>
