@@ -27,10 +27,7 @@ class ArticlePresenter extends BasePresenter
 	 */
 	public function actionEdit($id)
 	{
-		$article = $this->database->table('articles')->where('id = ?', $id)->fetch();
-		if ($article === false) {
-			$this->error('Article not found');
-		}
+		$article = $this->loadArticleById($id);
 
 		$this->getComponent('form')->setDefaults(array(
 			'name' => $article->name,
@@ -55,23 +52,20 @@ class ArticlePresenter extends BasePresenter
 		$form->onSuccess[] = function (Form $form, \Nette\Utils\ArrayHash $values) {
 			$articleId = $this->getParameter('id', null);
 			if ($articleId !== null) {
-				$article = $this->database->table('articles')->where('id = ?', $articleId)->fetch();
+				$article = $this->loadArticleById($articleId);
 			}
 
 			$slug = $form->getComponent('slug')->isFilled() ? $values->slug : Strings::webalize($values->name);
-			if (isset($article) && $article !== false) {
-				$article->update(array(
-					'name' => $values->name,
-					'slug' => $slug,
-					'text' => $values->text,
-				));
+			$data = array(
+				'name' => $values->name,
+				'slug' => $slug,
+				'text' => $values->text,
+			);
+			if (isset($article)) {
+				$article->update($data);
 			} else {
-				$this->database->table('articles')->insert(array(
-					'name' => $values->name,
-					'slug' => $slug,
-					'text' => $values->text,
-					'published' => new \DateTimeImmutable(),
-				));
+				$data['published'] = new \DateTimeImmutable();
+				$this->database->table('articles')->insert($data);
 			}
 
 			$this->flashMessage(sprintf('Article %s saved', $values->name), 'success');
@@ -79,5 +73,18 @@ class ArticlePresenter extends BasePresenter
 		};
 
 		return $form;
+	}
+
+	/**
+	 * @param $id int
+	 * @return \Nette\Database\Table\ActiveRow
+	 */
+	private function loadArticleById($id)
+	{
+		$article = $this->database->table('articles')->get($id);
+		if ($article === FALSE) {
+			$this->error('Article not found');
+		}
+		return $article;
 	}
 }

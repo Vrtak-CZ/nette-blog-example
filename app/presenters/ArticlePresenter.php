@@ -24,10 +24,7 @@ class ArticlePresenter extends BasePresenter
 	 */
 	public function renderDetail($slug)
 	{
-		$article = $this->database->table('articles')->where('slug = ?', $slug)->fetch();
-		if ($article === false) {
-			$this->error('Article not found');
-		}
+		$article = $this->loadArticleBySlug($slug);
 
 		$this->template->article = $article;
 		$this->template->title = $article->name;
@@ -38,12 +35,22 @@ class ArticlePresenter extends BasePresenter
 	 */
 	protected function createComponentComments()
 	{
-		$article = $this->database->table('articles')->where('slug = ?', $this->getParameter('slug', NULL))->fetch();
-		if ($article === false) {
-			$this->error('Article not found');
-		}
+		$article = $this->loadArticleBySlug($this->getParameter('slug', NULL));
 
 		$control = new \App\Components\CommentsControl($this->database, $article->id);
 		return $control;
+	}
+
+	/**
+	 * @param $slug string
+	 * @return \Nette\Database\Table\ActiveRow
+	 */
+	private function loadArticleBySlug($slug)
+	{
+		$article = $this->database->table('articles')->where('slug = ?', $slug)->fetch();
+		if ($article === FALSE) {
+			$this->error('Article not found');
+		}
+		return $article;
 	}
 }
