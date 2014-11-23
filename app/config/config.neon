@@ -5,6 +5,7 @@
 # http://nette.org/security-warning
 #
 parameters:
+	https: No
 
 
 php:
@@ -26,5 +27,5 @@ nette:
 
 
 services:
-	- App\RouterFactory
+	- App\RouterFactory(%https%)
 	router: @App\RouterFactory::createRouter
